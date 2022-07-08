@@ -1,4 +1,6 @@
 import java.io.*;
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class OperationToProduct {
@@ -10,7 +12,7 @@ public class OperationToProduct {
 
     public Product createProduct(MyList<Product> myList) {
         boolean checkID;
-        String bcode="";
+        String bcode;
         do {
             System.out.print("Input new ID: ");
             bcode = new Scanner(System.in).next();
@@ -20,7 +22,7 @@ public class OperationToProduct {
         String title=new Scanner(System.in).nextLine();
         int quantity=0;
         double price=0;
-        boolean check=true;
+        boolean check;
         do{
             try{
                 System.out.print("Input Product's quantity:");
@@ -43,8 +45,7 @@ public class OperationToProduct {
                 check=false;
             }
         }while(!check);
-        Product newProduct=new Product(bcode.toUpperCase(),title.toUpperCase(),quantity,price);
-        return newProduct;
+        return new Product(bcode.toUpperCase(),title.toUpperCase(),quantity,price);
     }
 
     /**
@@ -102,11 +103,11 @@ public class OperationToProduct {
      */
 
     public void displayStack(MyStack<String> myStack){
-        System.out.printf("%-10s%-15s%10s%10s\n","ID", "TITLE","QUANTITY","PRICE");
+        System.out.printf("%-10s%-15s%10s%15s\n","ID", "TITLE","QUANTITY","PRICE");
         while (!myStack.isEmpty()){
             String s=myStack.pop().getInfo();
             String[] temp= s.split("\\|");
-            System.out.printf("%-10s%-15s%10s%10s\n",temp[0], temp[1],temp[2],temp[3]);
+            System.out.printf("%-10s%-15s%10s%15s\n",temp[0], temp[1],temp[2],this.displayDecimal(temp[3]));
         }
     }
 
@@ -137,11 +138,11 @@ public class OperationToProduct {
      */
 
     public void displayQueue(MyQueue<String> myQueue){
-        System.out.printf("%-10s%-15s%10s%10s\n","ID", "TITLE","QUANTITY","PRICE");
+        System.out.printf("%-10s%-15s%10s%15s\n","ID", "TITLE","QUANTITY","PRICE");
         while (!myQueue.isEmpTy()){
             String s=myQueue.dequeue().getInfo();
             String[] temp=s.split("\\|");
-            System.out.printf("%-10s%-15s%10s%10s\n",temp[0], temp[1],temp[2],temp[3]);
+            System.out.printf("%-10s%-15s%10s%15s\n",temp[0], temp[1],temp[2],this.displayDecimal(temp[3]));
         }
 
     }
@@ -168,7 +169,7 @@ public class OperationToProduct {
             return;
         }
         Node<Product> current=list.getHead();
-        System.out.printf("%-10s%-15s%10s%10s\n","ID", "TITLE","QUANTITY","PRICE");
+        System.out.printf("%-10s%-15s%10s%15s\n","ID", "TITLE","QUANTITY","PRICE");
         while (current!=null){
             current.getInfo().display();
             current=current.getNextNode();
@@ -220,7 +221,7 @@ public class OperationToProduct {
         }
         if(current!=null) {
             System.out.println("Result: ");
-            System.out.printf("%-10s%-15s%10s%10s\n","ID", "TITLE","QUANTITY","PRICE");
+            System.out.printf("%-10s%-15s%10s%15s\n","ID", "TITLE","QUANTITY","PRICE");
             current.getInfo().display();
         } else System.out.println("Result: -1");
 
@@ -318,7 +319,7 @@ public class OperationToProduct {
      */
 
     public String getBocdeIndex(MyList<Product> myList, int index){
-        String result=null;
+        String result;
         if(myList.getLength()<index) { return null;}
         else {
             Node<Product> current=myList.getHead();
@@ -337,7 +338,7 @@ public class OperationToProduct {
      */
 
     public Node<Product> getNodeIndex(MyList<Product> myList, int index){
-        Node<Product> result=null;
+        Node<Product> result;
         if(myList.getLength()<index) { return null;}
         else {
             Node<Product> current=myList.getHead();
@@ -369,6 +370,12 @@ public class OperationToProduct {
         }
         return  result;
 
+    }
+    public String displayDecimal(String s) {
+        Locale localeVN = new Locale("vi", "VN");
+        NumberFormat nf=NumberFormat.getInstance(localeVN);
+        double d=Double.parseDouble(s);
+        return nf.format(d);
     }
 
 }

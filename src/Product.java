@@ -1,3 +1,6 @@
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class Product
 {
     private String bcode;
@@ -51,6 +54,8 @@ public class Product
 
     }
     public void display(){
-        System.out.printf("%-10s%-15s%10s%10s\n",this.bcode.toUpperCase(),this.title.toUpperCase(),this.quantity, this.price);
+        Locale localeVN = new Locale("vi", "VN");
+        NumberFormat nf=NumberFormat.getInstance(localeVN);
+        System.out.printf("%-10s%-15s%10s%15s\n",this.bcode.toUpperCase(),this.title.toUpperCase(),this.quantity,nf.format(this.price));
     }
 }

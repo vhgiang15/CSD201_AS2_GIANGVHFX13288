@@ -247,7 +247,6 @@ public class OperationToProduct {
                 }
                 current=current.getNextNode();
             }
-            list.g
         }
 
     }

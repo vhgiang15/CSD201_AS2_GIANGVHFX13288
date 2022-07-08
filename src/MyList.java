@@ -1,7 +1,6 @@
 public class MyList<T> {
     private Node<T> head;
     private Node<T> tail;
-    private int length;
 
     public MyList() {
     }
@@ -23,16 +22,22 @@ public class MyList<T> {
     }
 
     public int getLength() {
+        int length=0;
+        if(this.head==null) {length=0;}
+        else {
+            Node<T> current=this.head;
+            while (current!=null) {
+                length++;
+                current=current.getNextNode();
+            }
+        }
         return length;
     }
-    public void setLength(int n) {
-        this.length=n;
-    }
+
 
     public void clear(){
         this.head=null;
         this.tail=null;
-        this.length=0;
     }
     public void insertAtTail(T info){
         Node<T> newNode= new Node<T>(info);
@@ -44,10 +49,8 @@ public class MyList<T> {
             this.tail.setNextNode(newNode);
             this.tail=newNode;
         }
-        this.length++;
     }
     public void deleteAtHead(){
         this.head=this.head.getNextNode();
-        this.length--;
-   }
+    }
 }

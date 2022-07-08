@@ -25,6 +25,9 @@ public class MyList<T> {
     public int getLength() {
         return length;
     }
+    public void setLength(int n) {
+        this.length=n;
+    }
 
     public void clear(){
         this.head=null;

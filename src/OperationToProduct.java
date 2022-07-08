@@ -3,13 +3,19 @@ import java.util.Scanner;
 
 public class OperationToProduct {
     /**
-     * Tạo thông tin một sản phẩm mới
+     * Tạo thông tin một sản phẩm mới với ID không bị trùng nhau.
+     * @param myList DS list hiện tại
      * @return The product
      */
 
-    public Product createProduct() {
-        System.out.print("Input new ID: ");
-        String bcode = new Scanner(System.in).next();
+    public Product createProduct(MyList<Product> myList) {
+        boolean checkID;
+        String bcode="";
+        do {
+            System.out.print("Input new ID: ");
+            bcode = new Scanner(System.in).next();
+            checkID=this.checkBcode(myList,bcode);
+        }while (checkID); // nếu ID đã tồn tại rồi thì yêu cầu nhập lại ID
         System.out.print("Input Product's Name: ");
         String title=new Scanner(System.in).nextLine();
         int quantity=0;
@@ -147,7 +153,7 @@ public class OperationToProduct {
      */
 
     public void addLast(MyList<Product> list) {
-        list.insertAtTail(this.createProduct());
+        list.insertAtTail(this.createProduct(list));
     }
 
 
@@ -341,6 +347,27 @@ public class OperationToProduct {
             result=current;
         }
         return result;
+
+    }
+    /**
+     * Check bcode nhập từ bàn phím để xét mã ID đã tổn tại chưa
+     * @param myList List chứa thông tin sản phẩm
+     * @param bcode chỉ số index của Node cần lấy thông tin Node
+     * @return true nếu bcode tồn tại trong list, ngược lại trả về false
+     */
+
+    public boolean checkBcode(MyList<Product> myList, String bcode) {
+        boolean result=false;
+        Node<Product> current=myList.getHead();
+        while (current!=null) {
+            if(current.getInfo().getBcode().equals(bcode.toUpperCase())) {
+                System.out.println("ID product was existent");
+                result=true;
+                break;
+            }
+            current=current.getNextNode();
+        }
+        return  result;
 
     }
 

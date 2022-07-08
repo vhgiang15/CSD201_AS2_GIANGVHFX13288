@@ -36,7 +36,6 @@ public class AS2Main {
             switch(n) {
                 case 1:
                     OP.getAllItemsFromFile(filename,mylist);
-                    System.out.println(mylist.getLength());
                     break;
                 case 2:
                     OP.addLast(mylist);

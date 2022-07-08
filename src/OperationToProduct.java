@@ -51,11 +51,11 @@ public class OperationToProduct {
     /**
      * Đọc thông tin sản phẩm từ file và lưu vào phía cuối của DS Linklist
      * @param fileName Đường dẫn file cần đọc
-     * @param mylist    DS Linklist để lưu thông tin sản phẩm vào
+     * @param myList    DS Linklist để lưu thông tin sản phẩm vào
      */
 
-    public void getAllItemsFromFile(String fileName, MyList<Product> mylist) {
-        mylist.clear();
+    public void getAllItemsFromFile(String fileName, MyList<Product> myList) {
+        myList.clear();
         try{
             FileReader fr=new FileReader(fileName);
             BufferedReader br=new BufferedReader(fr);
@@ -67,7 +67,7 @@ public class OperationToProduct {
                 int quantity=Integer.parseInt(temp[2]);
                 double price=Double.parseDouble(temp[3]);
                 Product p=new Product(bcode,title,quantity,price);
-                mylist.insertAtTail(p);
+                myList.insertAtTail(p);
                 s= br.readLine();
             }
             br.close();
